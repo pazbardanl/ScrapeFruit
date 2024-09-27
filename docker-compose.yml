@@ -27,3 +27,9 @@ services:
     depends_on:
       kafka:
         condition: service_healthy
+
+  runner-service:
+    build: ./RunnerService
+    depends_on:
+      kafka:
+        condition: service_healthy

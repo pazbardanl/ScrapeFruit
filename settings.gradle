@@ -1,3 +1,4 @@
 rootProject.name = 'scrapefruit'
 
 include 'ScraperService'
+include 'RunnerService'
