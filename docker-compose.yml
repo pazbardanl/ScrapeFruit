@@ -27,6 +27,15 @@ services:
     depends_on:
       kafka:
         condition: service_healthy
+    environment:
+      KAFKA_BROKER: kafka:9092
+      INPUT_KAFKA_TOPIC: url-events
+      OUTPUT_KAFKA_TOPIC: text-events
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   runner-service:
     build: ./RunnerService
