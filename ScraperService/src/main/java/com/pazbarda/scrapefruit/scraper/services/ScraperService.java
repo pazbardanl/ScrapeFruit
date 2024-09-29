@@ -1,5 +1,6 @@
-package com.pazbarda.scrapefruit.services.scraper;
+package com.pazbarda.scrapefruit.scraper.services;
 
+import com.pazbarda.scrapefruit.scraper.helpers.Scraper;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -11,6 +12,7 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -18,6 +20,10 @@ import java.util.Collections;
 import java.util.Properties;
 
 public class ScraperService {
+
+    @Autowired
+    private final static Scraper scraper = new Scraper();
+
     public static void main(String[] args) {
         System.out.println("ScraperService - Hello world!");
         String kafkaBroker = System.getenv("KAFKA_BROKER");
@@ -55,7 +61,7 @@ public class ScraperService {
 
                     // Scrape the URL content using JSoup
                     try {
-                        String scrapedText = scrapeUrl(urlToScrape);
+                        String scrapedText = scraper.scrapeUrl(urlToScrape);
 
                         // Produce the scraped text to the output Kafka topic
                         producer.send(new ProducerRecord<>(outputTopic, urlToScrape, scrapedText));
@@ -70,10 +76,5 @@ public class ScraperService {
             consumer.close();
             producer.close();
         }
-    }
-
-    private static String scrapeUrl(String url) throws IOException {
-        Document doc = Jsoup.connect(url).get();
-        return doc.text();
     }
 }

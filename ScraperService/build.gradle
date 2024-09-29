@@ -20,6 +20,7 @@ dependencies {
     implementation 'org.jsoup:jsoup:1.18.1'
     implementation 'org.apache.kafka:kafka-clients:3.6.0'
     implementation 'ch.qos.logback:logback-classic:1.2.11'
+    implementation 'org.springframework:spring-context:6.0.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }
