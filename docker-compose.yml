@@ -38,21 +38,21 @@ services:
         max-size: "10m"
         max-file: "3"
 
-#  scraper-service-2:
-#    build: ./ScraperService
-#    depends_on:
-#      kafka:
-#        condition: service_healthy
-#    environment:
-#      KAFKA_BROKER: kafka:9092
-#      INPUT_KAFKA_TOPIC: url-events
-#      OUTPUT_KAFKA_TOPIC: text-events
-#      KAFKA_CONSUMER_GROUP: scraper-consumer
-#    logging:
-#      driver: "json-file"
-#      options:
-#        max-size: "10m"
-#        max-file: "3"
+  scraper-service-2:
+    build: ./ScraperService
+    depends_on:
+      kafka:
+        condition: service_healthy
+    environment:
+      KAFKA_BROKER: kafka:9092
+      INPUT_KAFKA_TOPIC: url-events-1
+      OUTPUT_KAFKA_TOPIC: text-events-1
+      KAFKA_CONSUMER_GROUP: scraper-consumer
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   runner-service:
     build: ./RunnerService
