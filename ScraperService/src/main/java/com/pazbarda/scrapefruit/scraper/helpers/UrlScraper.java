@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Component
-public class Scraper {
+public class UrlScraper {
     public String scrapeUrl(String url) throws IOException {
         Document doc = Jsoup.connect(url).get();
         return doc.text();

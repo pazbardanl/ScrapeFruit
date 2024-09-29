@@ -28,8 +28,7 @@ public class KafkaFactory {
     }
 
     public KafkaProducer<String, String> createKafkaProducer(){
-        KafkaProducer<String, String> producer = new KafkaProducer<>(getProducerProperties(broker));
-        return producer;
+        return new KafkaProducer<>(getProducerProperties(broker));
     }
 
     private Properties getConsumerProperties(String consumerGroup){
