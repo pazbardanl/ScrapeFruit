@@ -31,6 +31,7 @@ services:
       KAFKA_BROKER: kafka:9092
       INPUT_KAFKA_TOPIC: url-events
       OUTPUT_KAFKA_TOPIC: text-events
+      KAFKA_CONSUMER_GROUP: scraper-consumer
     logging:
       driver: "json-file"
       options:

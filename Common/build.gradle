@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'  // Shadow plugin for fat JAR creation
+}
+
+group 'com.pazbarda.scrapefruit'
+version '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.apache.kafka:kafka-clients:3.6.0'
+    implementation 'org.springframework:spring-context:6.0.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+//bootJar {
+//    mainClass = 'com.pazbarda.scrapefruit.services.scraper.ScraperService'
+//}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'com.pazbarda.scrapefruit.services.scraper.ScraperService'
+        )
+    }
+}
+
+shadowJar {
+    archiveClassifier.set('all')  // This ensures the fat JAR is suffixed with '-all'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
